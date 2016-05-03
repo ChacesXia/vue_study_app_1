@@ -1,6 +1,6 @@
 <template>
   <!-- 表单 begin -->
-    <div class="list-block">
+    <div class="list-block" @keyup.enter = "postForm">
       <ul>
         <li>
           <div class="item-content">
@@ -23,9 +23,10 @@
           </div>
         </li>
       </ul>
+      <a class="button button-big button-fill button-success post-form" @click = "postForm">登陆</a>
     </div>
     <!-- 表单 end -->
-   <a class="button button-big button-fill button-success" @click = "postForm">登陆</a>
+   
 </template>
 
 <script>
@@ -50,6 +51,7 @@ export default {
     },
     // 提交表单
     postForm: function (event) {
+      console.log('ok')
       event.preventDefault()
       this.$http.post(
         'http://121.249.216.217/auth/login/', {'username': this.userForm.username, 'password': this.userForm.password}).then(function (successResponse) {
@@ -67,4 +69,8 @@ export default {
   }
 }
 </script>
-
+<style type="text/css">
+  .post-form{
+    margin-top: 50px;
+  }
+</style>

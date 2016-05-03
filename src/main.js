@@ -63,19 +63,12 @@ setInterval(function () {
 // 加头
 vue.http.interceptors.push({
   request: function (request) {
-    console.log('add header request')
     var cookieName = 'csrftoken'
-    console.log(request)
     var cookieValue = null
     if (document.cookie && document.cookie !== '') {
       var cookies = document.cookie.split(';')
       for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i].trim()
-        console.log(cookie)
-        console.log('local')
-        console.log(cookie.substring(0, cookieName.length + 1).trim())
-        console.log('name')
-        console.log(cookieName.trim() + '=')
         if (cookie.substring(0, cookieName.length + 1).trim() === (cookieName.trim() + '=')) {
           cookieValue = cookie.substring(cookieName.length + 1, cookie.length)
           break
@@ -83,18 +76,13 @@ vue.http.interceptors.push({
       }
     }
     if (cookieValue !== '' && cookieValue !== null) {
-      console.log('have cookie')
-      console.log(cookieValue)
       vue.set(request.headers, 'x-csrftoken', cookieValue)
     } else {
-      console.log('not cookie!!!')
     }
     return request
   },
 
   response: function (response) {
-    console.log('add header after')
-    console.log(response)
     return response
   }
 
